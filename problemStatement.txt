@@ -1,0 +1,76 @@
+Deadline: 11:45 PM 16th January, 2025
+
+Good luck cracking these problems, we will be waiting for your submission.
+
+Assessment Problem:
+
+Technical Test: Problem-Solving Task for Interns
+Instructions
+Objective: Write a program in JavaScript to solve the problem described below. You can use any framework or runtime environment and you are allowed to use any packages or API's.
+
+Requirements:
+Your code must include three global variables:
+url: A string for the Google Spreadsheet URL.
+startDate: A string representing the start of the date range (in dd-mm-yyyy format).
+endDate: A string representing the end of the date range (in dd-mm-yyyy format).
+These variables will act as input parameters to solve the problem.
+
+Deliverables:
+A a compressed file "put your name as the name of the file" that includes:
+Source Code: Submit your source code.
+Instructions File: Include a instructions.txt file that explains how to run the program and get the results.
+Sample Spreadsheet URL: Include a URL of the sample spreadsheet you have used to test your program and make sure it's permissions set to "Anyone on the internet with the link can view", Put it in a test.txt file
+
+Output:
+Display the result in any form you prefer (console output, a text file, or a web page).
+
+Input
+The input to your program will be:
+A public Google Spreadsheet URL with view-only access.
+The spreadsheet will have two sheets:
+Orders Sheet:
+Columns: Order ID, Order Date.
+Rows: The first row will be headers, followed by data.
+LineItems Sheet:
+Columns: LineItem ID, Order ID, Price.
+Rows: The first row will be headers, followed by data.
+Date Format: All dates in the spreadsheet will follow the dd-mm-yyyy format.
+
+Guaranteed Conditions:
+All Order ID and LineItem ID values are unique.
+Each LineItem ID belongs to a specific Order ID.
+No empty rows or cells exist in either sheet.
+Combined row count for both sheets will not exceed 10,000 rows.
+All date values are valid.
+
+Problem Description
+We have an online store that every day, orders poured in from customers who customized their products before shipping. But one fateful day, a technical mishap struck the store’s database, wiping out all customer preferences for orders placed within a specific time range.
+This meant that all orders in that range would need to be refunded—except for one day. By some miracle, the developers salvaged a solution to fully restore the data of orders placed on one single day within that range.
+Your mission is simple yet critical:
+Find the best day to save so the Total Price of the Line Items in the refunded orders is minimized.
+
+Output
+The output of your program should be the date in the dd-mm-yyyy format for the best day to save.
+
+Submission Checklist
+    Ensure your code:
+Designed for optimal performance with minimal execution time.
+Reads the input data correctly.
+Implements the logic efficiently for up to 10,000 rows.
+Produces the correct output format.
+    Include a instructions.txt file that explains:
+How to set up any dependencies or environment.
+How to execute the program.
+How to view the results.
+    Ensure your submission is clear, error-free, and easy to follow.
+Example
+
+Input Example:
+url: Public Google Spreadsheet URL.
+startDate: 01-01-2023.
+endDate: 07-01-2023.
+Output Example:
+05-01-2023
+This means saving orders for 05-01-2023 minimizes the number of refunded orders.
+
+Submission Form: Click Here 
