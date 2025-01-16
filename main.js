@@ -11,24 +11,106 @@
 //  This is why you calculate refund money for orders associated with all dates
 //  except the one you choose to save.
 
-var url, startDate, endDate;
+var url,
+  startDate = "16-03-2023",
+  endDate = "15-8-2023";
 
 const { GoogleSpreadsheet } = require("google-spreadsheet");
-const fs = require("fs");
-const path = require("path");
+const { JWT } = require("google-auth-library");
 
-const CREDENTIALS_PATH = path.join(__dirname, "API-KEY.json");
-const SHEET_ID = "YOUR_SHEET_ID"; // Replace with your sheet ID
+const SHEET_ID = "1z4i3PBBDz6E84mfDeUSxa1B2l7Tq7TiuGSI3pOjGxzM";
+// const creds = path.join(__dirname, "API-KEY.json"); // Path of service account JSON file
+const credentials = "./API-KEY.json";
+const serviceAccountAuth = new JWT({
+  keyFile: "./API-KEY.json",
+  email: credentials.client_email,
+  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+});
+const formattedDates = formatDates(startDate, endDate);
 
-async function testAuth() {
+async function checkSaveDay({ startDate, endDate }) {
   try {
-    const creds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
-    const doc = new GoogleSpreadsheet(SHEET_ID);
-    await doc.useServiceAccountAuth(creds);
-    console.log("Authentication successful!");
-  } catch (err) {
-    console.error("Authentication failed:", err);
+    // const doc = new GoogleSpreadsheet(SHEET_ID, serviceAccountAuth);
+    // await doc.loadInfo();
+    console.log(`${startDate} ::: ${endDate}`);
+  } catch (error) {
+    console.error("Error: ", error);
   }
 }
 
-testAuth();
+checkSaveDay(formattedDates);
+function formatDates(startDate, endDate) {
+  function formatDate(inputData) {
+    const parts = inputData.split("-");
+    if (parts.length !== 3) {
+      throw new Error(
+        "Invalid Data Format please change, Expected format: DD-MM-YYYY"
+      );
+    }
+
+    const [day, month, year] = parts;
+    const formatedDay = String(day).padStart(2, "0");
+    const formatedMonth = String(month).padStart(2, "0");
+    return `${formatedDay}-${formatedMonth}-${year}`;
+  }
+  return {
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
+  };
+}
+
+// const startDate= this.startDate.padStart(2,'0')
+
+//     // Access sheets (create if not present)
+//     let ordersSheet = doc.sheetsByTitle["Orders"];
+//     if (!ordersSheet) {
+//       ordersSheet = await doc.addSheet({
+//         title: "Orders",
+//         headerValues: ["Order ID", "Order Date"],
+//       });
+//     }
+
+//     let lineItemsSheet = doc.sheetsByTitle["LineItems"];
+//     if (!lineItemsSheet) {
+//       lineItemsSheet = await doc.addSheet({
+//         title: "LineItems",
+//         headerValues: ["LineItem ID", "Order ID", "Price"],
+//       });
+//     }
+
+//     // Fill Orders Sheet
+//     const orders = [];
+//     for (let i = 0; i < 100; i++) {
+//       const randomDay = Math.floor(Math.random() * 30) + 1; // 1 to 30
+//       const randomMonth = Math.floor(Math.random() * 12) + 1; //1 to 12
+
+//       orders.push({
+//         "Order ID": i,
+//         "Order Date": `${String(randomDay).padStart(2, "0")}-${String(
+//           randomMonth
+//         ).padStart(2, "0")}-2023`,
+//       });
+
+//       // const orders [i] = { "Order ID": 1, "Order Date": "01-01-2023" };
+//     }
+
+//     await ordersSheet.addRows(orders);
+
+//     // Fill LineItems Sheet
+//     const lineItems = [];
+//     for (let i = 0; i < 1000; i++) {
+//       const randomOrderId = Math.floor(Math.random() * 100) + 1; // 1 to 100
+//       const randomPrice = Math.floor(Math.random() * 1200) + 200; //200 to 1200
+
+//       // { "LineItem ID": "C1", "Order ID": 3, Price: 250 },
+//       lineItems.push({
+//         "LineItem ID": `${"C" + i}`,
+//         "Order ID": randomOrderId,
+//         Price: randomPrice,
+//       });
+//     }
+//     await lineItemsSheet.addRows(lineItems);
+
+//     console.log("Test data populated successfully!");
+//   } catch (error) {
+//     console.error("Error populating test data:", error);
