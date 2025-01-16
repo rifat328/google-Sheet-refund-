@@ -76,6 +76,7 @@ async function populateTestData() {
 populateTestData();
 
 // varsion : 03 not working
+
 // const { GoogleSpreadsheet } = require("google-spreadsheet");
 // const { google } = require("googleapis");
 
@@ -176,3 +177,62 @@ populateTestData();
 // // });
 
 // // Load document
+
+//
+
+// async function checkSaveDay({ startDate, endDate }) {
+//   try {
+//     const doc = new GoogleSpreadsheet(SHEET_ID, serviceAccountAuth);
+//     await doc.loadInfo();
+
+//     const ordersSheet = doc.sheetsByTitle["Orders"];
+//     const lineItems = doc.sheetsByTitle["LineItems"];
+
+//     const ordersRows = await ordersSheet.getRows(); // Array of rows from the Orders sheet
+//     const lineItemsRows = await lineItems.getRows(); // Array of rows from the LineItems sheet
+
+//     const salesByDay = {}; // To store total sales for each day
+
+//     const headers = ordersRows[0]._worksheet._headerValues;
+
+//     ordersRows.forEach((order) => {
+//       const orderId = order._rawData[headers.indexOf("Order ID")];
+//       const orderDate = order._rawData[headers.indexOf("Order Date")];
+
+//       // Filter orders within the given date range
+//       if (isWithinRange(orderDate, startDate, endDate)) {
+//         const headers2 = lineItemsRows[0]._worksheet._headerValues;
+
+//         lineItemsRows.forEach((lineItem) => {
+//           const lineItemOrderId =
+//             lineItem._rawData[headers2.indexOf("Order ID")];
+//           const lineItemPrice = parseFloat(
+//             lineItem._rawData[headers2.indexOf("Price")]
+//           ); // Ensure Price is a number
+
+//           // Match Order ID and accumulate sales
+//           if (lineItemOrderId === orderId) {
+//             salesByDay[orderDate] =
+//               (salesByDay[orderDate] || 0) + lineItemPrice;
+//           }
+//         });
+//       }
+//     });
+
+//     // Determine the day with the highest sales
+//     let bestDay = null;
+//     let maxSales = -Infinity;
+
+//     for (const [day, totalSales] of Object.entries(salesByDay)) {
+//       if (totalSales > maxSales) {
+//         maxSales = totalSales;
+//         bestDay = day;
+//       }
+//     }
+
+//     console.log(`Best day to save: ${bestDay} with total sales of ${maxSales}`);
+//     return bestDay;
+//   } catch (error) {
+//     console.error("Error: ", error);
+//   }
+// }

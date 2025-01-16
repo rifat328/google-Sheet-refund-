@@ -1,0 +1,7 @@
+to Use this just run
+node main.js in your terminal ; if you have node install ,
+to check between specific date range :
+     edit startDate & endDate variable;
+     make sure year value is within 2023 because all the populate data 
+     on spreadSheet falls within ths year ,
+
