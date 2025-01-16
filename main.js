@@ -12,3 +12,23 @@
 //  except the one you choose to save.
 
 var url, startDate, endDate;
+
+const { GoogleSpreadsheet } = require("google-spreadsheet");
+const fs = require("fs");
+const path = require("path");
+
+const CREDENTIALS_PATH = path.join(__dirname, "API-KEY.json");
+const SHEET_ID = "YOUR_SHEET_ID"; // Replace with your sheet ID
+
+async function testAuth() {
+  try {
+    const creds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf8"));
+    const doc = new GoogleSpreadsheet(SHEET_ID);
+    await doc.useServiceAccountAuth(creds);
+    console.log("Authentication successful!");
+  } catch (err) {
+    console.error("Authentication failed:", err);
+  }
+}
+
+testAuth();
